@@ -1,7 +1,7 @@
-def read_advertisements():
+def read_advertisements(input_file):
     advertisements = []
 
-    with open('input.txt', 'r') as file:
+    with open(input_file, 'r') as file:
         for line in file:
             is_district = True
             advertisement = []
@@ -12,6 +12,7 @@ def read_advertisements():
                     is_district = False
                 else:
                     advertisement.append(int(parameter))
+
             advertisements.append(advertisement)
 
     return advertisements
@@ -26,13 +27,13 @@ def filter_advertisements(advertisements):
     minimum_quantity_rooms = 2
 
     maximum_total_area = 300
-    minimum_total_area = 50
+    minimum_total_area = None
 
-    maximum_kitchen_area = 80
+    maximum_kitchen_area = None
     minimum_kitchen_area = 20
 
-    maximum_cost = 5000000
-    minimum_cost = 800000
+    maximum_cost = None
+    minimum_cost = None
 
     maximums = [maximum_quantity_rooms, maximum_total_area, maximum_kitchen_area, maximum_cost]
     minimums = [minimum_quantity_rooms, minimum_total_area, minimum_kitchen_area, minimum_cost]
@@ -69,9 +70,32 @@ def print_result_to_file(advertisements):
 
 
 def main():
-    advertisements = read_advertisements()
+    advertisements = read_advertisements('input.txt')
     filter_advertisements(advertisements)
     print_result_to_file(advertisements)
 
 
-main()
+def run_test():
+    cases = ('test_files/cases/input01.txt',
+             'test_files/cases/input02.txt',
+             'test_files/cases/input03.txt',
+             'test_files/cases/input04.txt',
+             'test_files/cases/input05.txt')
+
+    expected_results = ('test_files/expected_results/output01.txt',
+                        'test_files/expected_results/output02.txt',
+                        'test_files/expected_results/output03.txt',
+                        'test_files/expected_results/output04.txt',
+                        'test_files/expected_results/output05.txt')
+
+    for index in range(len(cases)):
+        advertisements = read_advertisements(cases[index])
+        filter_advertisements(advertisements)
+        if not advertisements == read_advertisements(expected_results[index]):
+            print("An error occurred in the test №" + str(index))
+            return
+
+    main()
+
+
+run_test()

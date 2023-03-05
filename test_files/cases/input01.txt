@@ -1,0 +1,6 @@
+railway 5 300 20 1
+railway 7 299 25 56
+railway 3 50 211 25
+railway 7 50 56 5
+railway 2 4 45 0
+railway 4 66 869 9
